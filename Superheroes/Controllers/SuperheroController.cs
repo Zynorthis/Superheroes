@@ -14,7 +14,7 @@ namespace Superheroes.Controllers
         // GET: Superhero
         public ActionResult Index()
         {
-            return View();
+            return View(db.Superheroes.ToList());
         }
 
         // GET: Superhero/Details/5
@@ -44,14 +44,15 @@ namespace Superheroes.Controllers
             }
             catch
             {
-                return View();
+                return View("Index");
             }
         }
 
         // GET: Superhero/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            Superhero superhero = db.Superheroes.Where(s => s.ID == id).FirstOrDefault();
+            return View(superhero);
         }
 
         // POST: Superhero/Edit/5
@@ -67,9 +68,9 @@ namespace Superheroes.Controllers
                 superheroFromDb.primaryAbility = superhero.primaryAbility;
                 superheroFromDb.secondaryAbility = superhero.secondaryAbility;
                 superheroFromDb.catchphrase = superhero.catchphrase;
-                // EntityState.Modified
+
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", new { id = superhero.ID });
             }
             catch
             {
@@ -80,16 +81,20 @@ namespace Superheroes.Controllers
         // GET: Superhero/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            Superhero superhero = db.Superheroes.Where(s => s.ID == id).FirstOrDefault();
+            return View(superhero);
         }
 
         // POST: Superhero/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(int id, Superhero superhero)
         {
             try
             {
                 // TODO: Add delete logic here
+                Superhero superheroFromDb = db.Superheroes.Where(s => s.ID == id).FirstOrDefault();
+                db.Superheroes.Remove(superheroFromDb);
+                db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
