@@ -7,7 +7,6 @@
     <title>@ViewBag.Title - Superheroes Project</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -30,9 +29,9 @@
                 <li class="nav-item">
                     @Html.ActionLink("List of Heros", "Index", "Superhero", null, new { @class = "nav-link" })
                 </li>
-                <li class="nav-item">
+                @*<li class="nav-item">
                     @Html.ActionLink("Details Page Test", "Details", "Superhero", new { id = 1 }, new { @class = "nav-link" })
-                </li>
+                </li>*@
                 <li class="nav-item">
                     @Html.ActionLink("Create", "Create", "Superhero", null, new { @class = "nav-link" })
                 </li>
